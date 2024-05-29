@@ -100,7 +100,7 @@ No modules.
 | <a name="input_replica_availability_zone"></a> [replica\_availability\_zone](#input\_replica\_availability\_zone) | The availability zone of the replica instance. | `string` | `null` | no |
 | <a name="input_replica_enabled"></a> [replica\_enabled](#input\_replica\_enabled) | If true, the DB replica is created. | `bool` | `false` | no |
 | <a name="input_replica_name"></a> [replica\_name](#input\_replica\_name) | The replica instance identifier. | `string` | `null` | no |
-| <a name="input_replicate_source_db"></a> [replicate\_source\_db](#input\_replicate\_source\_db) | Specifies that this a Replicate database. | `bool` | `false` | no |
+| <a name="input_replicate_source_db"></a> [replicate\_source\_db](#input\_replicate\_source\_db) | Specifies that this resource is a Replicate database. | `string` | `false` | no |
 | <a name="input_skip_final_snapshot"></a> [skip\_final\_snapshot](#input\_skip\_final\_snapshot) | Determines whether a final DB snapshot is created before the DB instance is deleted. | `bool` | `true` | no |
 | <a name="input_snapshot_identifier"></a> [snapshot\_identifier](#input\_snapshot\_identifier) | Specifies whether or not to create this database from a snapshot. | `string` | `null` | no |
 | <a name="input_storage_encrypted"></a> [storage\_encrypted](#input\_storage\_encrypted) | The storage throughput value for the DB instance. | `bool` | `false` | no |

@@ -231,8 +231,8 @@ variable "replica_enabled" {
 }
 
 variable "replicate_source_db" {
-  description = "Specifies that this a Replicate database."
-  type        = bool
+  description = "Specifies that this resource is a Replicate database."
+  type        = string
   default     = false
 }
 
