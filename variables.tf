@@ -185,6 +185,7 @@ variable "parameter_group_name" {
 
 variable "parameters_map" {
   description = "A map of parameters included in the database parameter group."
+  type        = map(string)
   default     = {}
 }
 
@@ -227,12 +228,6 @@ variable "publicly_accessible" {
 variable "replica_enabled" {
   description = "If true, the DB replica is created."
   type        = bool
-  default     = false
-}
-
-variable "replicate_source_db" {
-  description = "Specifies that this resource is a Replicate database."
-  type        = string
   default     = false
 }
 

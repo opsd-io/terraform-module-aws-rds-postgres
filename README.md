@@ -90,7 +90,7 @@ No modules.
 | <a name="input_multi_az"></a> [multi\_az](#input\_multi\_az) | Specifies if the RDS instance is multi-AZ. | `bool` | `false` | no |
 | <a name="input_network_type"></a> [network\_type](#input\_network\_type) | The network type of the DB instance. | `string` | `"IPV4"` | no |
 | <a name="input_parameter_group_name"></a> [parameter\_group\_name](#input\_parameter\_group\_name) | The name of the database parameter group. | `string` | `null` | no |
-| <a name="input_parameters_map"></a> [parameters\_map](#input\_parameters\_map) | A map of parameters included in the database parameter group. | `map` | `{}` | no |
+| <a name="input_parameters_map"></a> [parameters\_map](#input\_parameters\_map) | A map of parameters included in the database parameter group. | `map(string)` | `{}` | no |
 | <a name="input_password"></a> [password](#input\_password) | Password for the master DB user. | `string` | `null` | no |
 | <a name="input_performance_insights_enabled"></a> [performance\_insights\_enabled](#input\_performance\_insights\_enabled) | Specifies whether Performance Insights are enabled. | `bool` | `false` | no |
 | <a name="input_performance_insights_kms_key_id"></a> [performance\_insights\_kms\_key\_id](#input\_performance\_insights\_kms\_key\_id) | The ARN for the KMS key to encrypt Performance Insights data. | `string` | `null` | no |
@@ -100,7 +100,6 @@ No modules.
 | <a name="input_replica_availability_zone"></a> [replica\_availability\_zone](#input\_replica\_availability\_zone) | The availability zone of the replica instance. | `string` | `null` | no |
 | <a name="input_replica_enabled"></a> [replica\_enabled](#input\_replica\_enabled) | If true, the DB replica is created. | `bool` | `false` | no |
 | <a name="input_replica_name"></a> [replica\_name](#input\_replica\_name) | The replica instance identifier. | `string` | `null` | no |
-| <a name="input_replicate_source_db"></a> [replicate\_source\_db](#input\_replicate\_source\_db) | Specifies that this resource is a Replicate database. | `string` | `false` | no |
 | <a name="input_skip_final_snapshot"></a> [skip\_final\_snapshot](#input\_skip\_final\_snapshot) | Determines whether a final DB snapshot is created before the DB instance is deleted. | `bool` | `true` | no |
 | <a name="input_snapshot_identifier"></a> [snapshot\_identifier](#input\_snapshot\_identifier) | Specifies whether or not to create this database from a snapshot. | `string` | `null` | no |
 | <a name="input_storage_encrypted"></a> [storage\_encrypted](#input\_storage\_encrypted) | The storage throughput value for the DB instance. | `bool` | `false` | no |
