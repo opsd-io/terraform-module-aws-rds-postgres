@@ -9,8 +9,6 @@ terraform {
   }
 }
 
-provider "aws" {}
-
 resource "aws_db_parameter_group" "main" {
   count = var.create_db_parameter_group ? 1 : 0
 
