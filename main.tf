@@ -1,3 +1,16 @@
+terraform {
+  required_version = ">= 1.5.5"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 5.50.0"
+    }
+  }
+}
+
+provider "aws" {}
+
 resource "aws_db_parameter_group" "main" {
   count = var.create_db_parameter_group ? 1 : 0
 
