@@ -65,7 +65,7 @@ variable "db_name" {
 }
 
 variable "db_subnet_group_name" {
-  description = "Name of DB subnet group."
+  description = "The name of DB subnet group."
   type        = string
   default     = null
 }
@@ -241,6 +241,12 @@ variable "snapshot_identifier" {
   description = "Specifies whether or not to create this database from a snapshot."
   type        = string
   default     = null
+}
+
+variable "subnet_ids" {
+  description = "A set of subnet IDs used to create DB subnet group."
+  type        = set(string)
+  default     = []
 }
 
 variable "storage_encrypted" {

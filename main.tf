@@ -9,6 +9,10 @@ terraform {
   }
 }
 
+locals {
+  db_subnet_group_name = var.db_subnet_group_name != null ? var.db_subnet_group_name : var.instance_name
+}
+
 resource "aws_db_parameter_group" "main" {
   count = var.create_db_parameter_group ? 1 : 0
 
@@ -29,6 +33,14 @@ resource "aws_db_parameter_group" "main" {
   }
 }
 
+resource "aws_db_subnet_group" "main" {
+  count = var.subnet_ids != null && try(length(var.subnet_ids) > 0) ? 1 : 0
+
+  name       = local.db_subnet_group_name
+  subnet_ids = var.subnet_ids
+  tags       = var.tags
+}
+
 resource "aws_db_instance" "main" {
   allocated_storage          = var.allocated_storage
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
@@ -44,7 +56,7 @@ resource "aws_db_instance" "main" {
   copy_tags_to_snapshot                 = var.copy_tags_to_snapshot
   custom_iam_instance_profile           = var.custom_iam_instance_profile
   db_name                               = var.db_name
-  db_subnet_group_name                  = var.db_subnet_group_name
+  db_subnet_group_name                  = local.db_subnet_group_name
   dedicated_log_volume                  = var.dedicated_log_volume
   delete_automated_backups              = var.delete_automated_backups
   deletion_protection                   = var.deletion_protection
