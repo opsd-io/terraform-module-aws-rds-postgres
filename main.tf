@@ -11,7 +11,6 @@ terraform {
 
 locals {
   db_subnet_group_name      = var.db_subnet_group_name != null ? var.db_subnet_group_name : var.instance_name
-  parameter_group_to_create = var.parameter_group_name != null ? var.parameter_group_name : var.instance_name
   parameter_group_name      = var.parameter_group_name != null ? var.parameter_group_name : (var.parameter_group_list != [] && try(length(var.parameter_group_list) > 0) ? var.instance_name : null)
 }
 
