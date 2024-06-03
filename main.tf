@@ -10,12 +10,12 @@ terraform {
 }
 
 locals {
-  db_subnet_group_name      = var.db_subnet_group_name != null ? var.db_subnet_group_name : var.instance_name
-  parameter_group_name      = var.parameter_group_name != null ? var.parameter_group_name : (var.parameter_group_list != [] && try(length(var.parameter_group_list) > 0) ? var.instance_name : null)
+  db_subnet_group_name = var.db_subnet_group_name != null ? var.db_subnet_group_name : var.instance_name
+  parameter_group_name = var.parameter_group_name != null ? var.parameter_group_name : (length(var.parameter_group_list) > 0 ? var.instance_name : null)
 }
 
 resource "aws_db_parameter_group" "main" {
-  count = var.parameter_group_list != [] && try(length(var.parameter_group_list) > 0) ? 1 : 0
+  count = length(var.parameter_group_list) > 0 ? 1 : 0
 
   name   = local.parameter_group_name
   family = var.parameter_group_family
