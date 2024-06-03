@@ -298,3 +298,9 @@ variable "replica_name" {
   type        = string
   default     = null
 }
+
+variable "number_of_replicas" {
+  description = "Allows creating arbitrary number of replicas."
+  type        = number
+  default     = 0
+}

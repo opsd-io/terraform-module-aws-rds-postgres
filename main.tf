@@ -104,3 +104,14 @@ resource "aws_db_instance" "replica" {
   skip_final_snapshot        = var.skip_final_snapshot
   tags                       = var.tags
 }
+
+resource "aws_db_instance" "multi_replica" {
+  count = var.number_of_replicas
+
+  replicate_source_db        = aws_db_instance.main.identifier
+  instance_class             = var.instance_class
+  identifier                 = var.replica_name != null ? "${var.replica_name}-${count.index + 1}" : "${var.instance_name}-replica-${count.index + 1}"
+  auto_minor_version_upgrade = var.auto_minor_version_upgrade
+  skip_final_snapshot        = var.skip_final_snapshot
+  tags                       = var.tags
+}
