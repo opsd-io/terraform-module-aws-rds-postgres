@@ -10,17 +10,19 @@ terraform {
 }
 
 locals {
-  db_subnet_group_name = var.db_subnet_group_name != null ? var.db_subnet_group_name : var.instance_name
+  db_subnet_group_name      = var.db_subnet_group_name != null ? var.db_subnet_group_name : var.instance_name
+  parameter_group_to_create = var.parameter_group_name != null ? var.parameter_group_name : var.instance_name
+  parameter_group_name      = var.parameter_group_name != null ? var.parameter_group_name : (var.parameter_group_list != [] && try(length(var.parameter_group_list) > 0) ? var.instance_name : null)
 }
 
 resource "aws_db_parameter_group" "main" {
-  count = var.create_db_parameter_group ? 1 : 0
+  count = var.parameter_group_list != [] && try(length(var.parameter_group_list) > 0) ? 1 : 0
 
-  name   = var.parameter_group_name
-  family = "postgres16"
+  name   = local.parameter_group_name
+  family = var.parameter_group_family
 
   dynamic "parameter" {
-    for_each = var.parameters_map
+    for_each = var.parameter_group_list
     content {
       name         = parameter.value.name
       value        = parameter.value.value
@@ -76,7 +78,7 @@ resource "aws_db_instance" "main" {
   monitoring_role_arn                   = var.monitoring_role_arn
   multi_az                              = var.multi_az
   network_type                          = var.network_type
-  parameter_group_name                  = var.parameter_group_name
+  parameter_group_name                  = local.parameter_group_name
   password                              = var.password
   performance_insights_enabled          = var.performance_insights_enabled
   performance_insights_kms_key_id       = var.performance_insights_kms_key_id

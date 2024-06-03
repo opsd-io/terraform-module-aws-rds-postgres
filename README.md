@@ -68,7 +68,6 @@ No modules.
 | <a name="input_blue_green_update_enabled"></a> [blue\_green\_update\_enabled](#input\_blue\_green\_update\_enabled) | Enables low-downtime updates when true. | `bool` | `false` | no |
 | <a name="input_ca_cert_identifier"></a> [ca\_cert\_identifier](#input\_ca\_cert\_identifier) | The identifier of the CA certificate for the DB instance. | `string` | `null` | no |
 | <a name="input_copy_tags_to_snapshot"></a> [copy\_tags\_to\_snapshot](#input\_copy\_tags\_to\_snapshot) | Copy all Instance tags to snapshots. | `bool` | `false` | no |
-| <a name="input_create_db_parameter_group"></a> [create\_db\_parameter\_group](#input\_create\_db\_parameter\_group) | If true, a database parameter group is created. | `bool` | `false` | no |
 | <a name="input_custom_iam_instance_profile"></a> [custom\_iam\_instance\_profile](#input\_custom\_iam\_instance\_profile) | The instance profile associated with the underlying Amazon EC2 instance of an RDS Custom DB instance. | `string` | `null` | no |
 | <a name="input_db_name"></a> [db\_name](#input\_db\_name) | The database name. | `string` | `"defaultdb"` | no |
 | <a name="input_db_subnet_group_name"></a> [db\_subnet\_group\_name](#input\_db\_subnet\_group\_name) | The name of DB subnet group. | `string` | `null` | no |
@@ -90,8 +89,9 @@ No modules.
 | <a name="input_monitoring_role_arn"></a> [monitoring\_role\_arn](#input\_monitoring\_role\_arn) | The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to CloudWatch Logs. | `string` | `null` | no |
 | <a name="input_multi_az"></a> [multi\_az](#input\_multi\_az) | Specifies if the RDS instance is multi-AZ. | `bool` | `false` | no |
 | <a name="input_network_type"></a> [network\_type](#input\_network\_type) | The network type of the DB instance. | `string` | `"IPV4"` | no |
+| <a name="input_parameter_group_family"></a> [parameter\_group\_family](#input\_parameter\_group\_family) | The family of the DB parameter group. | `string` | `"postgres16"` | no |
+| <a name="input_parameter_group_list"></a> [parameter\_group\_list](#input\_parameter\_group\_list) | A list of parameters included in the database parameter group. | `list(map(string))` | `[]` | no |
 | <a name="input_parameter_group_name"></a> [parameter\_group\_name](#input\_parameter\_group\_name) | The name of the database parameter group. | `string` | `null` | no |
-| <a name="input_parameters_map"></a> [parameters\_map](#input\_parameters\_map) | A map of parameters included in the database parameter group. | `map(string)` | `{}` | no |
 | <a name="input_password"></a> [password](#input\_password) | Password for the master DB user. | `string` | `null` | no |
 | <a name="input_performance_insights_enabled"></a> [performance\_insights\_enabled](#input\_performance\_insights\_enabled) | Specifies whether Performance Insights are enabled. | `bool` | `false` | no |
 | <a name="input_performance_insights_kms_key_id"></a> [performance\_insights\_kms\_key\_id](#input\_performance\_insights\_kms\_key\_id) | The ARN for the KMS key to encrypt Performance Insights data. | `string` | `null` | no |

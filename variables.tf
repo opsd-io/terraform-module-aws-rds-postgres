@@ -46,12 +46,6 @@ variable "copy_tags_to_snapshot" {
   default     = false
 }
 
-variable "create_db_parameter_group" {
-  description = "If true, a database parameter group is created."
-  type        = bool
-  default     = false
-}
-
 variable "custom_iam_instance_profile" {
   description = "The instance profile associated with the underlying Amazon EC2 instance of an RDS Custom DB instance."
   type        = string
@@ -177,16 +171,22 @@ variable "network_type" {
   default     = "IPV4"
 }
 
+variable "parameter_group_family" {
+  description = "The family of the DB parameter group."
+  type        = string
+  default     = "postgres16"
+}
+
 variable "parameter_group_name" {
   description = "The name of the database parameter group."
   type        = string
   default     = null
 }
 
-variable "parameters_map" {
-  description = "A map of parameters included in the database parameter group."
-  type        = map(string)
-  default     = {}
+variable "parameter_group_list" {
+  description = "A list of parameters included in the database parameter group."
+  type        = list(map(string))
+  default     = []
 }
 
 variable "password" {
