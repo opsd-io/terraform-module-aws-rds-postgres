@@ -54,6 +54,7 @@ No modules.
 | [aws_db_instance.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance) | resource |
 | [aws_db_instance.multi_replica](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance) | resource |
 | [aws_db_instance.replica](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance) | resource |
+| [aws_db_instance_role_association.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance_role_association) | resource |
 | [aws_db_parameter_group.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_parameter_group) | resource |
 | [aws_db_subnet_group.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_subnet_group) | resource |
 
@@ -103,6 +104,7 @@ No modules.
 | <a name="input_replica_availability_zone"></a> [replica\_availability\_zone](#input\_replica\_availability\_zone) | The availability zone of the replica instance. | `string` | `null` | no |
 | <a name="input_replica_enabled"></a> [replica\_enabled](#input\_replica\_enabled) | If true, the DB replica is created. | `bool` | `false` | no |
 | <a name="input_replica_name"></a> [replica\_name](#input\_replica\_name) | The replica instance identifier. | `string` | `null` | no |
+| <a name="input_role_associations"></a> [role\_associations](#input\_role\_associations) | A map of the database instance associations with an IAM Role. | `map(string)` | `{}` | no |
 | <a name="input_skip_final_snapshot"></a> [skip\_final\_snapshot](#input\_skip\_final\_snapshot) | Determines whether a final DB snapshot is created before the DB instance is deleted. | `bool` | `true` | no |
 | <a name="input_snapshot_identifier"></a> [snapshot\_identifier](#input\_snapshot\_identifier) | Specifies whether or not to create this database from a snapshot. | `string` | `null` | no |
 | <a name="input_storage_encrypted"></a> [storage\_encrypted](#input\_storage\_encrypted) | The storage throughput value for the DB instance. | `bool` | `false` | no |

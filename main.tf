@@ -94,6 +94,14 @@ resource "aws_db_instance" "main" {
   vpc_security_group_ids                = var.vpc_security_group_ids
 }
 
+resource "aws_db_instance_role_association" "main" {
+  for_each = var.role_associations
+
+  db_instance_identifier = aws_db_instance.main.identifier
+  feature_name           = each.key
+  role_arn               = each.value
+}
+
 resource "aws_db_instance" "replica" {
   count                      = var.replica_enabled ? 1 : 0
   replicate_source_db        = aws_db_instance.main.identifier

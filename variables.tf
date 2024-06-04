@@ -231,6 +231,12 @@ variable "replica_enabled" {
   default     = false
 }
 
+variable "role_associations" {
+  description = "A map of the database instance associations with an IAM Role."
+  type        = map(string)
+  default     = {}
+}
+
 variable "skip_final_snapshot" {
   description = "Determines whether a final DB snapshot is created before the DB instance is deleted."
   type        = bool
