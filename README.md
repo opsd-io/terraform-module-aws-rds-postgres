@@ -119,8 +119,17 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the RDS instance. |
-| <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | The connection endpoint. |
+| <a name="output_db_instance_address"></a> [db\_instance\_address](#output\_db\_instance\_address) | The address of the RDS instance. |
+| <a name="output_db_instance_arn"></a> [db\_instance\_arn](#output\_db\_instance\_arn) | The ARN of the RDS instance. |
+| <a name="output_db_instance_availability_zone"></a> [db\_instance\_availability\_zone](#output\_db\_instance\_availability\_zone) | The availability zone of the RDS instance. |
+| <a name="output_db_instance_backup_retention_period"></a> [db\_instance\_backup\_retention\_period](#output\_db\_instance\_backup\_retention\_period) | The backup window of the RDS instance. |
+| <a name="output_db_instance_backup_window"></a> [db\_instance\_backup\_window](#output\_db\_instance\_backup\_window) | The backup retention period of the RDS instance. |
+| <a name="output_db_instance_endpoint"></a> [db\_instance\_endpoint](#output\_db\_instance\_endpoint) | The connection endpoint of the RDS instance. |
+| <a name="output_db_instance_engine_version_actual"></a> [db\_instance\_engine\_version\_actual](#output\_db\_instance\_engine\_version\_actual) | The running version of the RDS instance. |
+| <a name="output_db_instance_identifier"></a> [db\_instance\_identifier](#output\_db\_instance\_identifier) | The RDS instance identifier. |
+| <a name="output_db_instance_maintenance_window"></a> [db\_instance\_maintenance\_window](#output\_db\_instance\_maintenance\_window) | The maintenance window of the RDS instance. |
+| <a name="output_db_instance_replica_availability_zone"></a> [db\_instance\_replica\_availability\_zone](#output\_db\_instance\_replica\_availability\_zone) | The availability zone of the replica RDS instance. |
+| <a name="output_db_instance_status"></a> [db\_instance\_status](#output\_db\_instance\_status) | The status of the RDS instance. |
 <!-- END_TF_DOCS -->
 
 ## Examples of usage
