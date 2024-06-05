@@ -1,6 +1,6 @@
 output "db_instance_address" {
   description = "The address of the RDS instance."
-  value       = aws_db_instance.db_instance_address
+  value       = aws_db_instance.main.address
 }
 
 output "db_instance_arn" {
@@ -10,7 +10,7 @@ output "db_instance_arn" {
 
 output "db_instance_availability_zone" {
   description = "The availability zone of the RDS instance."
-  value       = aws_db_instance.main.db_instance_availability_zone
+  value       = aws_db_instance.main.availability_zone
 }
 
 output "db_instance_backup_retention_period" {
@@ -30,25 +30,25 @@ output "db_instance_endpoint" {
 
 output "db_instance_identifier" {
   description = "The RDS instance identifier."
-  value       = module.db_instance.db_instance_identifier
+  value       = aws_db_instance.main.identifier
 }
 
 output "db_instance_engine_version_actual" {
   description = "The running version of the RDS instance."
-  value       = module.db_instance.engine_version_actual
+  value       = aws_db_instance.main.engine_version_actual
 }
 
 output "db_instance_maintenance_window" {
   description = "The maintenance window of the RDS instance."
-  value       = module.db_instance.maintenance_window
+  value       = aws_db_instance.main.maintenance_window
 }
 
 output "db_instance_status" {
   description = "The status of the RDS instance."
-  value       = module.db_instance.status
+  value       = aws_db_instance.main.status
 }
 
 output "db_instance_replica_availability_zone" {
-  description = "The availability zone of the replica RDS instance."
-  value       = aws_db_instance.replica.db_instance_availability_zone
+  description = "The availability zone of the replica instance."
+  value       = length(aws_db_instance.replica) > 0 ? aws_db_instance.replica[0].availability_zone : null
 }

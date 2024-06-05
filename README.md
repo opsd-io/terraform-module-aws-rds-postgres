@@ -128,7 +128,7 @@ No modules.
 | <a name="output_db_instance_engine_version_actual"></a> [db\_instance\_engine\_version\_actual](#output\_db\_instance\_engine\_version\_actual) | The running version of the RDS instance. |
 | <a name="output_db_instance_identifier"></a> [db\_instance\_identifier](#output\_db\_instance\_identifier) | The RDS instance identifier. |
 | <a name="output_db_instance_maintenance_window"></a> [db\_instance\_maintenance\_window](#output\_db\_instance\_maintenance\_window) | The maintenance window of the RDS instance. |
-| <a name="output_db_instance_replica_availability_zone"></a> [db\_instance\_replica\_availability\_zone](#output\_db\_instance\_replica\_availability\_zone) | The availability zone of the replica RDS instance. |
+| <a name="output_db_instance_replica_availability_zone"></a> [db\_instance\_replica\_availability\_zone](#output\_db\_instance\_replica\_availability\_zone) | The availability zone of the replica instance. |
 | <a name="output_db_instance_status"></a> [db\_instance\_status](#output\_db\_instance\_status) | The status of the RDS instance. |
 <!-- END_TF_DOCS -->
 
