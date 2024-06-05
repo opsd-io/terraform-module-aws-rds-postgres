@@ -103,7 +103,8 @@ resource "aws_db_instance_role_association" "main" {
 }
 
 resource "aws_db_instance" "replica" {
-  count                      = var.replica_enabled ? 1 : 0
+  count = var.replica_enabled ? 1 : 0
+
   replicate_source_db        = aws_db_instance.main.identifier
   instance_class             = var.instance_class
   availability_zone          = var.replica_availability_zone
