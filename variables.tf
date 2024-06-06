@@ -313,6 +313,10 @@ variable "number_of_replicas" {
 
 variable "custom_replicas" {
   description = "A map of replica instances. Allows to set different settings for each one."
-  type        = map(map(string))
-  default     = {}
+  type = map(object({
+    availability_zone = optional(string),
+    instance_class    = optional(string, "db.t4g.micro"),
+    tags              = optional(map(string))
+  }))
+  default = {}
 }
