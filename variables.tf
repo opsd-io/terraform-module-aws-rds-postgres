@@ -310,3 +310,9 @@ variable "number_of_replicas" {
   type        = number
   default     = 0
 }
+
+variable "custom_replicas" {
+  description = "A map of replica instances. Allows to set different settings for each one."
+  type        = map(map(string))
+  default     = {}
+}

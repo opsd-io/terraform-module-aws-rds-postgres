@@ -124,3 +124,15 @@ resource "aws_db_instance" "multi_replica" {
   skip_final_snapshot        = var.skip_final_snapshot
   tags                       = var.tags
 }
+
+resource "aws_db_instance" "custom_replica" {
+  for_each = var.custom_replicas
+
+  replicate_source_db        = aws_db_instance.main.identifier
+  instance_class             = try(each.value.instance_class, var.instance_class)
+  availability_zone          = try(each.value.availability_zone, var.replica_availability_zone)
+  identifier                 = each.key
+  auto_minor_version_upgrade = var.auto_minor_version_upgrade
+  skip_final_snapshot        = var.skip_final_snapshot
+  tags                       = merge(try(each.value.tags, {}), var.tags)
+}
