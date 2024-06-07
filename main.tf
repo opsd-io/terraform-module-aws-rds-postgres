@@ -92,6 +92,18 @@ resource "aws_db_instance" "main" {
   tags                                  = var.tags
   username                              = var.username
   vpc_security_group_ids                = var.vpc_security_group_ids
+
+  dynamic "restore_to_point_in_time" {
+    for_each = var.snapshot_identifier == null && length(var.restore_to_point_in_time) > 0 ? [1] : []
+
+    content {
+      restore_time                             = lookup(var.restore_to_point_in_time, "restore_time", null)
+      source_db_instance_identifier            = lookup(var.restore_to_point_in_time, "source_db_instance_identifier", null)
+      source_db_instance_automated_backups_arn = lookup(var.restore_to_point_in_time, "source_db_instance_automated_backups_arn", null)
+      source_dbi_resource_id                   = lookup(var.restore_to_point_in_time, "source_dbi_resource_id", null)
+      use_latest_restorable_time               = lookup(var.restore_to_point_in_time, "use_latest_restorable_time", null)
+    }
+  }
 }
 
 resource "aws_db_instance_role_association" "main" {

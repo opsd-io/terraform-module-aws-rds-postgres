@@ -231,6 +231,18 @@ variable "replica_enabled" {
   default     = false
 }
 
+variable "restore_to_point_in_time" {
+  description = "value"
+  type = object({
+    restore_time                             = optional(string),
+    source_db_instance_identifier            = optional(string),
+    source_db_instance_automated_backups_arn = optional(string),
+    source_dbi_resource_id                   = optional(string),
+    use_latest_restorable_time               = optional(string)
+  })
+  default = {}
+}
+
 variable "role_associations" {
   description = "A map of the database instance associations with an IAM Role."
   type        = map(string)
