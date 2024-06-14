@@ -29,6 +29,48 @@ Terraform module which creates RDS Postgres on AWS.
 
 **IMPORTANT**: Make sure not to pin to master because there may be breaking changes between releases.
 
+## Replication
+The module allows to create replica instance(s) in three different ways:
+
+1. Single replica instance
+```hcl
+module "postgres_main" {
+  source = "github.com/opsd-io/terraform-module-aws-rds-postgres"
+  (...)
+  replica_enabled = true
+}
+```
+
+2. Simple mode - an option to create arbitrary number of replicas. It's not possible to set distinct settings for each instance.
+
+```hcl
+module "postgres_main" {
+  source = "github.com/opsd-io/terraform-module-aws-rds-postgres"
+  (...)
+  number_of_replicas = 3
+}
+```
+
+3. Advanced mode - an option to create arbitrary number of replicas alongwith different settings for each instance. Offers the highest flexibility.
+
+```hcl
+module "postgres_main" {
+  source = "github.com/opsd-io/terraform-module-aws-rds-postgres"
+  (...)
+  custom_replicas = {
+    "opsd-postgres-main-read-${var.env_name}" = {
+      "availability_zone" = "us-east-2b"
+      "tags" = { "replica" = "read" }
+    }
+    "opsd-postgres-main-analytics-${var.env_name}" = {
+      "availability_zone" = "us-east-2c"
+      "instance_class"    = "db.t4g.small"
+      "tags" = { "replica" = "analytics" }
+    }
+  }
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
