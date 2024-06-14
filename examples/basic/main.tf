@@ -1,7 +1,6 @@
 module "example" {
   source = "github.com/opsd-io/terraform-module-aws-rds-postgres"
 
-
   instance_name  = "example"
   engine_version = "16.3"
   instance_class = "db.t4g.micro"
@@ -9,8 +8,10 @@ module "example" {
   username = "dbadmin"
   password = "avoid-plaintext-passwords"
 
-  tags = {
-    "Name" = "example"
+  max_allocated_storage = 30
+
+  common_tags = {
     "Env"  = "test"
   }
+
 }
