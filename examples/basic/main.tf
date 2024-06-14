@@ -11,7 +11,7 @@ module "example" {
   max_allocated_storage = 30
 
   common_tags = {
-    "Env"  = "test"
+    "Env" = "test"
   }
 
 }
