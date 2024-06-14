@@ -262,7 +262,7 @@ variable "snapshot_identifier" {
 }
 
 variable "subnet_ids" {
-  description = "A set of subnet IDs used to create DB subnet group."
+  description = "A set of subnet IDs used to create the DB subnet group."
   type        = set(string)
   default     = []
 }
@@ -289,6 +289,20 @@ variable "tags" {
   description = "A map of tags."
   type        = map(string)
   default     = {}
+}
+
+variable "timeouts" {
+  type = object({
+    create = string
+    update = string
+    delete = string
+  })
+  description = "A map of timeouts to apply while creating, updating, or deleting the DB instance."
+  default = {
+    create = "40m"
+    update = "80m"
+    delete = "60m"
+  }
 }
 
 variable "username" {

@@ -110,6 +110,12 @@ resource "aws_db_instance" "main" {
       snapshot_identifier
     ]
   }
+
+  timeouts {
+    create = var.timeouts.create
+    update = var.timeouts.update
+    delete = var.timeouts.delete
+  }
 }
 
 resource "aws_db_instance_role_association" "main" {
