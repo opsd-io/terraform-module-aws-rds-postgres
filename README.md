@@ -29,6 +29,13 @@ Terraform module which creates RDS Postgres on AWS.
 
 **IMPORTANT**: Make sure not to pin to master because there may be breaking changes between releases.
 
+## Tags
+
+* ```var.common_tags``` - assigned to every resource in this module
+* ```var.instance_tags``` - assigned to the DB instance and each of it's replicas
+* ```var.tags``` - assigned to the DB instance
+* ```var.replica_tags``` - assigned to every DB replica instance
+
 ## Replication
 The module allows to create replica instance(s) in three different ways:
 
@@ -112,6 +119,7 @@ No modules.
 | <a name="input_backup_window"></a> [backup\_window](#input\_backup\_window) | The daily time range (in UTC) during which automated backups are created if they are enabled. | `string` | `"03:00-06:00"` | no |
 | <a name="input_blue_green_update_enabled"></a> [blue\_green\_update\_enabled](#input\_blue\_green\_update\_enabled) | Enables low-downtime updates when true. | `bool` | `false` | no |
 | <a name="input_ca_cert_identifier"></a> [ca\_cert\_identifier](#input\_ca\_cert\_identifier) | The identifier of the CA certificate for the DB instance. | `string` | `null` | no |
+| <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | A map of tags to assign to every resource in this module. | `map(string)` | `{}` | no |
 | <a name="input_copy_tags_to_snapshot"></a> [copy\_tags\_to\_snapshot](#input\_copy\_tags\_to\_snapshot) | Copy all Instance tags to snapshots. | `bool` | `false` | no |
 | <a name="input_custom_iam_instance_profile"></a> [custom\_iam\_instance\_profile](#input\_custom\_iam\_instance\_profile) | The instance profile associated with the underlying Amazon EC2 instance of an RDS Custom DB instance. | `string` | `null` | no |
 | <a name="input_custom_replicas"></a> [custom\_replicas](#input\_custom\_replicas) | A map of replica instances. Allows to set different settings for each one. | <pre>map(object({<br>    availability_zone = optional(string),<br>    instance_class    = optional(string, "db.t4g.micro"),<br>    tags              = optional(map(string))<br>  }))</pre> | `{}` | no |
@@ -126,6 +134,7 @@ No modules.
 | <a name="input_iam_database_authentication_enabled"></a> [iam\_database\_authentication\_enabled](#input\_iam\_database\_authentication\_enabled) | Enables mappings of AWS IAM accounts to database accounts. | `bool` | `false` | no |
 | <a name="input_instance_class"></a> [instance\_class](#input\_instance\_class) | The instance type of the RDS instance. | `string` | `"db.t4g.micro"` | no |
 | <a name="input_instance_name"></a> [instance\_name](#input\_instance\_name) | The database instance identifier. | `string` | n/a | yes |
+| <a name="input_instance_tags"></a> [instance\_tags](#input\_instance\_tags) | A map of tags to assign to the DB instance and each of it's replicas. | `map(string)` | `{}` | no |
 | <a name="input_iops"></a> [iops](#input\_iops) | The database storage type. | `number` | `null` | no |
 | <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | The ARN for the KMS encryption key. | `string` | `null` | no |
 | <a name="input_maintenance_window"></a> [maintenance\_window](#input\_maintenance\_window) | The window to perform maintenance in. | `string` | `"Mon:00:00-Mon:03:00"` | no |
@@ -148,6 +157,7 @@ No modules.
 | <a name="input_replica_availability_zone"></a> [replica\_availability\_zone](#input\_replica\_availability\_zone) | The availability zone of the replica instance. | `string` | `null` | no |
 | <a name="input_replica_enabled"></a> [replica\_enabled](#input\_replica\_enabled) | If true, the DB replica is created. | `bool` | `false` | no |
 | <a name="input_replica_name"></a> [replica\_name](#input\_replica\_name) | The replica instance identifier. | `string` | `null` | no |
+| <a name="input_replica_tags"></a> [replica\_tags](#input\_replica\_tags) | A map of tags to assign to each replica instance. | `map(string)` | `{}` | no |
 | <a name="input_restore_to_point_in_time"></a> [restore\_to\_point\_in\_time](#input\_restore\_to\_point\_in\_time) | value | <pre>object({<br>    restore_time                             = optional(string),<br>    source_db_instance_identifier            = optional(string),<br>    source_db_instance_automated_backups_arn = optional(string),<br>    source_dbi_resource_id                   = optional(string),<br>    use_latest_restorable_time               = optional(string)<br>  })</pre> | `{}` | no |
 | <a name="input_role_associations"></a> [role\_associations](#input\_role\_associations) | A map of the database instance associations with an IAM Role. | `map(string)` | `{}` | no |
 | <a name="input_skip_final_snapshot"></a> [skip\_final\_snapshot](#input\_skip\_final\_snapshot) | Determines whether a final DB snapshot is created before the DB instance is deleted. | `bool` | `true` | no |
@@ -156,7 +166,7 @@ No modules.
 | <a name="input_storage_throughput"></a> [storage\_throughput](#input\_storage\_throughput) | The storage throughput value for the DB instance. | `number` | `null` | no |
 | <a name="input_storage_type"></a> [storage\_type](#input\_storage\_type) | The database storage type. | `string` | `"gp3"` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | A set of subnet IDs used to create the DB subnet group. | `set(string)` | `[]` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | A map of tags. | `map(string)` | `{}` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | A map of the DB instance tags. | `map(string)` | `{}` | no |
 | <a name="input_timeouts"></a> [timeouts](#input\_timeouts) | A map of timeouts to apply while creating, updating, or deleting the DB instance. | <pre>object({<br>    create = string<br>    update = string<br>    delete = string<br>  })</pre> | <pre>{<br>  "create": "40m",<br>  "delete": "60m",<br>  "update": "80m"<br>}</pre> | no |
 | <a name="input_username"></a> [username](#input\_username) | Username for the master DB user. | `string` | `"dbadmin"` | no |
 | <a name="input_vpc_security_group_ids"></a> [vpc\_security\_group\_ids](#input\_vpc\_security\_group\_ids) | The database storage type. | `list(string)` | `[]` | no |

@@ -40,6 +40,12 @@ variable "ca_cert_identifier" {
   default     = null
 }
 
+variable "common_tags" {
+  description = "A map of tags to assign to every resource in this module."
+  type        = map(string)
+  default     = {}
+}
+
 variable "copy_tags_to_snapshot" {
   description = "Copy all Instance tags to snapshots."
   type        = bool
@@ -115,6 +121,12 @@ variable "instance_class" {
 variable "instance_name" {
   description = "The database instance identifier."
   type        = string
+}
+
+variable "instance_tags" {
+  description = "A map of tags to assign to the DB instance and each of it's replicas."
+  type        = map(string)
+  default     = {}
 }
 
 variable "iops" {
@@ -286,7 +298,7 @@ variable "storage_type" {
 }
 
 variable "tags" {
-  description = "A map of tags."
+  description = "A map of the DB instance tags."
   type        = map(string)
   default     = {}
 }
@@ -345,4 +357,10 @@ variable "custom_replicas" {
     tags              = optional(map(string))
   }))
   default = {}
+}
+
+variable "replica_tags" {
+  description = "A map of tags to assign to each replica instance."
+  type        = map(string)
+  default     = {}
 }

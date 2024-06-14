@@ -19,6 +19,7 @@ resource "aws_db_parameter_group" "main" {
 
   name   = local.parameter_group_name
   family = var.parameter_group_family
+  tags   = var.common_tags
 
   dynamic "parameter" {
     for_each = var.parameter_group_list
@@ -39,7 +40,7 @@ resource "aws_db_subnet_group" "main" {
 
   name       = local.db_subnet_group_name
   subnet_ids = var.subnet_ids
-  tags       = var.tags
+  tags       = var.common_tags
 }
 
 resource "aws_db_instance" "main" {
@@ -89,9 +90,14 @@ resource "aws_db_instance" "main" {
   storage_encrypted                     = var.storage_encrypted
   storage_throughput                    = var.storage_throughput
   storage_type                          = var.storage_type
-  tags                                  = var.tags
-  username                              = var.username
-  vpc_security_group_ids                = var.vpc_security_group_ids
+  tags = merge(
+    var.common_tags,
+    var.instance_tags,
+    { Name = var.instance_name },
+    var.tags
+  )
+  username               = var.username
+  vpc_security_group_ids = var.vpc_security_group_ids
 
   dynamic "restore_to_point_in_time" {
     for_each = var.snapshot_identifier == null && length(var.restore_to_point_in_time) > 0 ? [1] : []
@@ -135,7 +141,12 @@ resource "aws_db_instance" "replica" {
   identifier                 = var.replica_name != null ? var.replica_name : "${var.instance_name}-replica"
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
   skip_final_snapshot        = var.skip_final_snapshot
-  tags                       = var.tags
+  tags = merge(
+    var.common_tags,
+    var.instance_tags,
+    { Name = var.replica_name != null ? var.replica_name : "${var.instance_name}-replica" },
+    var.replica_tags
+  )
 }
 
 resource "aws_db_instance" "multi_replica" {
@@ -146,7 +157,12 @@ resource "aws_db_instance" "multi_replica" {
   identifier                 = var.replica_name != null ? "${var.replica_name}-${count.index + 1}" : "${var.instance_name}-replica-${count.index + 1}"
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
   skip_final_snapshot        = var.skip_final_snapshot
-  tags                       = var.tags
+  tags = merge(
+    var.common_tags,
+    var.instance_tags,
+    { Name = var.replica_name != null ? "${var.replica_name}-${count.index + 1}" : "${var.instance_name}-replica-${count.index + 1}" },
+    var.replica_tags
+  )
 }
 
 resource "aws_db_instance" "custom_replica" {
@@ -158,5 +174,11 @@ resource "aws_db_instance" "custom_replica" {
   identifier                 = each.key
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
   skip_final_snapshot        = var.skip_final_snapshot
-  tags                       = merge(try(each.value.tags, {}), var.tags)
+  tags = merge(
+    var.common_tags,
+    var.instance_tags,
+    { Name = each.key },
+    var.replica_tags,
+    try(each.value.tags, {})
+  )
 }
