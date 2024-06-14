@@ -104,6 +104,12 @@ resource "aws_db_instance" "main" {
       use_latest_restorable_time               = lookup(var.restore_to_point_in_time, "use_latest_restorable_time", null)
     }
   }
+
+  lifecycle {
+    ignore_changes = [
+      snapshot_identifier
+    ]
+  }
 }
 
 resource "aws_db_instance_role_association" "main" {
