@@ -278,7 +278,7 @@ variable "subnet_ids" {
   type        = set(string)
   default     = []
   validation {
-    condition     = length(var.subnet_ids) == 0 || length(var.subnet_ids) > 1
+    condition     = length(var.subnet_ids) != 1
     error_message = "subnets_ids: add subnets to cover at least 2 AZs."
   }
 }
