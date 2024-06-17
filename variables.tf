@@ -277,6 +277,10 @@ variable "subnet_ids" {
   description = "A set of subnet IDs used to create the DB subnet group."
   type        = set(string)
   default     = []
+  validation {
+    condition     = length(var.subnet_ids) != 1
+    error_message = "subnets_ids: add subnets to cover at least 2 AZs."
+  }
 }
 
 variable "storage_encrypted" {
