@@ -117,7 +117,7 @@ No modules.
 | <a name="input_allocated_storage"></a> [allocated\_storage](#input\_allocated\_storage) | A size of the DB storage. | `number` | `20` | no |
 | <a name="input_auto_minor_version_upgrade"></a> [auto\_minor\_version\_upgrade](#input\_auto\_minor\_version\_upgrade) | Enables minor version auto upgrade. | `bool` | `false` | no |
 | <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | The availability zone of the instance. | `string` | `null` | no |
-| <a name="input_backup_retention_period"></a> [backup\_retention\_period](#input\_backup\_retention\_period) | The days to retain backups for. | `number` | `1` | no |
+| <a name="input_backup_retention_period"></a> [backup\_retention\_period](#input\_backup\_retention\_period) | The days to retain backups for. | `number` | `null` | no |
 | <a name="input_backup_window"></a> [backup\_window](#input\_backup\_window) | The daily time range (in UTC) during which automated backups are created if they are enabled. | `string` | `"03:00-06:00"` | no |
 | <a name="input_blue_green_update_enabled"></a> [blue\_green\_update\_enabled](#input\_blue\_green\_update\_enabled) | Enables low-downtime updates when true. | `bool` | `false` | no |
 | <a name="input_ca_cert_identifier"></a> [ca\_cert\_identifier](#input\_ca\_cert\_identifier) | The identifier of the CA certificate for the DB instance. | `string` | `null` | no |
