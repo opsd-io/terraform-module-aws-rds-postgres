@@ -12,6 +12,8 @@ terraform {
 locals {
   db_subnet_group_name = var.db_subnet_group_name != null ? var.db_subnet_group_name : (length(var.subnet_ids) > 0 ? var.instance_name : null)
   parameter_group_name = var.parameter_group_name != null ? var.parameter_group_name : (length(var.parameter_group_list) > 0 ? var.instance_name : null)
+
+  backup_retention_period = var.blue_green_update_enabled ? coalesce(var.backup_retention_period, 1) : var.backup_retention_period
 }
 
 resource "aws_db_parameter_group" "main" {
@@ -47,7 +49,7 @@ resource "aws_db_instance" "main" {
   allocated_storage          = var.allocated_storage
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
   availability_zone          = var.availability_zone
-  backup_retention_period    = var.backup_retention_period
+  backup_retention_period    = local.backup_retention_period
   backup_window              = var.backup_window
 
   blue_green_update {
