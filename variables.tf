@@ -70,6 +70,12 @@ variable "db_subnet_group_name" {
   default     = null
 }
 
+variable "db_subnet_group_tags" {
+  description = "A map of the DB subnet group tags."
+  type        = map(string)
+  default     = {}
+}
+
 variable "dedicated_log_volume" {
   description = "Use a dedicated log volume (DLV) for the DB instance."
   type        = bool
@@ -199,6 +205,12 @@ variable "parameter_group_list" {
   description = "A list of parameters included in the database parameter group."
   type        = list(map(string))
   default     = []
+}
+
+variable "parameter_group_tags" {
+  description = "A map of the parameter group tags."
+  type        = map(string)
+  default     = {}
 }
 
 variable "password" {

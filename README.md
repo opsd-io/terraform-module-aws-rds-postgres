@@ -35,6 +35,8 @@ Terraform module which creates RDS Postgres on AWS.
 * ```var.instance_tags``` - assigned to the DB instance and each of it's replicas
 * ```var.tags``` - assigned to the DB instance
 * ```var.replica_tags``` - assigned to every DB replica instance
+* ```var.db_subnet_group_tags``` - assigned to the DB subnet group
+* ```var.parameter_group_tags``` - assigned to the DB parameter group
 
 ## Replication
 The module allows to create replica instance(s) in three different ways:
@@ -125,6 +127,7 @@ No modules.
 | <a name="input_custom_replicas"></a> [custom\_replicas](#input\_custom\_replicas) | A map of replica instances. Allows to set different settings for each one. | <pre>map(object({<br>    availability_zone = optional(string),<br>    instance_class    = optional(string, "db.t4g.micro"),<br>    tags              = optional(map(string))<br>  }))</pre> | `{}` | no |
 | <a name="input_db_name"></a> [db\_name](#input\_db\_name) | The database name. | `string` | `"defaultdb"` | no |
 | <a name="input_db_subnet_group_name"></a> [db\_subnet\_group\_name](#input\_db\_subnet\_group\_name) | The name of DB subnet group. | `string` | `null` | no |
+| <a name="input_db_subnet_group_tags"></a> [db\_subnet\_group\_tags](#input\_db\_subnet\_group\_tags) | A map of the DB subnet group tags. | `map(string)` | `{}` | no |
 | <a name="input_dedicated_log_volume"></a> [dedicated\_log\_volume](#input\_dedicated\_log\_volume) | Use a dedicated log volume (DLV) for the DB instance. | `bool` | `false` | no |
 | <a name="input_delete_automated_backups"></a> [delete\_automated\_backups](#input\_delete\_automated\_backups) | Specifies whether to remove automated backups immediately after the DB instance is deleted. | `bool` | `true` | no |
 | <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | The database can't be deleted when this value is set to true. | `bool` | `false` | no |
@@ -148,6 +151,7 @@ No modules.
 | <a name="input_parameter_group_family"></a> [parameter\_group\_family](#input\_parameter\_group\_family) | The family of the DB parameter group. | `string` | `"postgres16"` | no |
 | <a name="input_parameter_group_list"></a> [parameter\_group\_list](#input\_parameter\_group\_list) | A list of parameters included in the database parameter group. | `list(map(string))` | `[]` | no |
 | <a name="input_parameter_group_name"></a> [parameter\_group\_name](#input\_parameter\_group\_name) | The name of the database parameter group. | `string` | `null` | no |
+| <a name="input_parameter_group_tags"></a> [parameter\_group\_tags](#input\_parameter\_group\_tags) | A map of the parameter group tags. | `map(string)` | `{}` | no |
 | <a name="input_password"></a> [password](#input\_password) | Password for the master DB user. | `string` | `null` | no |
 | <a name="input_performance_insights_enabled"></a> [performance\_insights\_enabled](#input\_performance\_insights\_enabled) | Specifies whether Performance Insights are enabled. | `bool` | `false` | no |
 | <a name="input_performance_insights_kms_key_id"></a> [performance\_insights\_kms\_key\_id](#input\_performance\_insights\_kms\_key\_id) | The ARN for the KMS key to encrypt Performance Insights data. | `string` | `null` | no |
