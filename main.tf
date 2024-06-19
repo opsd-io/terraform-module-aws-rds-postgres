@@ -19,7 +19,7 @@ resource "aws_db_parameter_group" "main" {
 
   name   = local.parameter_group_name
   family = var.parameter_group_family
-  tags   = var.common_tags
+  tags   = merge(var.common_tags, var.parameter_group_tags)
 
   dynamic "parameter" {
     for_each = var.parameter_group_list
@@ -40,7 +40,7 @@ resource "aws_db_subnet_group" "main" {
 
   name       = local.db_subnet_group_name
   subnet_ids = var.subnet_ids
-  tags       = var.common_tags
+  tags       = merge(var.common_tags, var.db_subnet_group_tags)
 }
 
 resource "aws_db_instance" "main" {
