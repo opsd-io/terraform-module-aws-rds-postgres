@@ -141,14 +141,23 @@ resource "aws_db_instance" "replica" {
   instance_class             = var.instance_class
   availability_zone          = var.replica_availability_zone
   identifier                 = var.replica_name != null ? var.replica_name : "${var.instance_name}-replica"
+  kms_key_id                 = var.kms_key_id
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
   skip_final_snapshot        = var.skip_final_snapshot
+  max_allocated_storage      = var.max_allocated_storage
+
   tags = merge(
     var.common_tags,
     var.instance_tags,
     { Name = var.replica_name != null ? var.replica_name : "${var.instance_name}-replica" },
     var.replica_tags
   )
+
+  timeouts {
+    create = var.timeouts.create
+    update = var.timeouts.update
+    delete = var.timeouts.delete
+  }
 }
 
 resource "aws_db_instance" "multi_replica" {
@@ -157,14 +166,23 @@ resource "aws_db_instance" "multi_replica" {
   replicate_source_db        = aws_db_instance.main.identifier
   instance_class             = var.instance_class
   identifier                 = var.replica_name != null ? "${var.replica_name}-${count.index + 1}" : "${var.instance_name}-replica-${count.index + 1}"
+  kms_key_id                 = var.kms_key_id
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
   skip_final_snapshot        = var.skip_final_snapshot
+  max_allocated_storage      = var.max_allocated_storage
+
   tags = merge(
     var.common_tags,
     var.instance_tags,
     { Name = var.replica_name != null ? "${var.replica_name}-${count.index + 1}" : "${var.instance_name}-replica-${count.index + 1}" },
     var.replica_tags
   )
+
+  timeouts {
+    create = var.timeouts.create
+    update = var.timeouts.update
+    delete = var.timeouts.delete
+  }
 }
 
 resource "aws_db_instance" "custom_replica" {
@@ -174,8 +192,11 @@ resource "aws_db_instance" "custom_replica" {
   instance_class             = try(each.value.instance_class)
   availability_zone          = try(each.value.availability_zone)
   identifier                 = each.key
+  kms_key_id                 = var.kms_key_id
   auto_minor_version_upgrade = var.auto_minor_version_upgrade
   skip_final_snapshot        = var.skip_final_snapshot
+  max_allocated_storage      = var.max_allocated_storage
+
   tags = merge(
     var.common_tags,
     var.instance_tags,
@@ -183,4 +204,9 @@ resource "aws_db_instance" "custom_replica" {
     var.replica_tags,
     try(each.value.tags, {})
   )
+  timeouts {
+    create = var.timeouts.create
+    update = var.timeouts.update
+    delete = var.timeouts.delete
+  }
 }
