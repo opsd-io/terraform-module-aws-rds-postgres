@@ -14,6 +14,27 @@ locals {
   parameter_group_name = var.parameter_group_name != null ? var.parameter_group_name : (length(var.parameter_group_list) > 0 ? var.instance_name : null)
 
   backup_retention_period = var.blue_green_update_enabled ? coalesce(var.backup_retention_period, 1) : var.backup_retention_period
+  replica_name            = var.replica_name != null ? var.replica_name : "${var.instance_name}-replica"
+
+  enabled_cloudwatch_logs_exports = var.cloudwatch_logs_enabled ? var.enabled_cloudwatch_logs_exports : []
+
+  multi_replica_instance_names = [for replica_id in range(1, var.number_of_replicas + 1) : var.replica_name != null ? "${var.replica_name}-${replica_id}" : "${var.instance_name}-replica-${replica_id}"]
+  multi_replica_cloudwatch_log_groups = distinct(flatten([
+    for replica_id in local.multi_replica_instance_names : [
+      for log in var.enabled_cloudwatch_logs_exports : {
+        replica_id = replica_id
+        log        = log
+      }
+    ]
+  ]))
+  custom_replicas_cloudwatch_log_groups = distinct(flatten([
+    for replica_id, params in var.custom_replicas : [
+      for log in var.enabled_cloudwatch_logs_exports : {
+        replica_id = replica_id
+        log        = log
+      }
+    ]
+  ]))
 }
 
 resource "aws_db_parameter_group" "main" {
@@ -64,7 +85,7 @@ resource "aws_db_instance" "main" {
   dedicated_log_volume                  = var.dedicated_log_volume
   delete_automated_backups              = var.delete_automated_backups
   deletion_protection                   = var.deletion_protection
-  enabled_cloudwatch_logs_exports       = var.enabled_cloudwatch_logs_exports
+  enabled_cloudwatch_logs_exports       = local.enabled_cloudwatch_logs_exports
   engine                                = "postgres"
   engine_version                        = var.engine_version
   final_snapshot_identifier             = var.final_snapshot_identifier
@@ -137,14 +158,15 @@ resource "aws_db_instance_role_association" "main" {
 resource "aws_db_instance" "replica" {
   count = var.replica_enabled ? 1 : 0
 
-  replicate_source_db        = aws_db_instance.main.identifier
-  instance_class             = var.instance_class
-  availability_zone          = var.replica_availability_zone
-  identifier                 = var.replica_name != null ? var.replica_name : "${var.instance_name}-replica"
-  kms_key_id                 = var.kms_key_id
-  auto_minor_version_upgrade = var.auto_minor_version_upgrade
-  skip_final_snapshot        = var.skip_final_snapshot
-  max_allocated_storage      = var.max_allocated_storage
+  replicate_source_db             = aws_db_instance.main.identifier
+  instance_class                  = var.instance_class
+  availability_zone               = var.replica_availability_zone
+  identifier                      = local.replica_name
+  enabled_cloudwatch_logs_exports = local.enabled_cloudwatch_logs_exports
+  kms_key_id                      = var.kms_key_id
+  auto_minor_version_upgrade      = var.auto_minor_version_upgrade
+  skip_final_snapshot             = var.skip_final_snapshot
+  max_allocated_storage           = var.max_allocated_storage
 
   tags = merge(
     var.common_tags,
@@ -163,13 +185,14 @@ resource "aws_db_instance" "replica" {
 resource "aws_db_instance" "multi_replica" {
   count = var.number_of_replicas
 
-  replicate_source_db        = aws_db_instance.main.identifier
-  instance_class             = var.instance_class
-  identifier                 = var.replica_name != null ? "${var.replica_name}-${count.index + 1}" : "${var.instance_name}-replica-${count.index + 1}"
-  kms_key_id                 = var.kms_key_id
-  auto_minor_version_upgrade = var.auto_minor_version_upgrade
-  skip_final_snapshot        = var.skip_final_snapshot
-  max_allocated_storage      = var.max_allocated_storage
+  replicate_source_db             = aws_db_instance.main.identifier
+  instance_class                  = var.instance_class
+  identifier                      = var.replica_name != null ? "${var.replica_name}-${count.index + 1}" : "${var.instance_name}-replica-${count.index + 1}"
+  enabled_cloudwatch_logs_exports = local.enabled_cloudwatch_logs_exports
+  kms_key_id                      = var.kms_key_id
+  auto_minor_version_upgrade      = var.auto_minor_version_upgrade
+  skip_final_snapshot             = var.skip_final_snapshot
+  max_allocated_storage           = var.max_allocated_storage
 
   tags = merge(
     var.common_tags,
@@ -188,14 +211,15 @@ resource "aws_db_instance" "multi_replica" {
 resource "aws_db_instance" "custom_replica" {
   for_each = var.custom_replicas
 
-  replicate_source_db        = aws_db_instance.main.identifier
-  instance_class             = try(each.value.instance_class)
-  availability_zone          = try(each.value.availability_zone)
-  identifier                 = each.key
-  kms_key_id                 = var.kms_key_id
-  auto_minor_version_upgrade = var.auto_minor_version_upgrade
-  skip_final_snapshot        = var.skip_final_snapshot
-  max_allocated_storage      = var.max_allocated_storage
+  replicate_source_db             = aws_db_instance.main.identifier
+  instance_class                  = try(each.value.instance_class)
+  availability_zone               = try(each.value.availability_zone)
+  identifier                      = each.key
+  enabled_cloudwatch_logs_exports = local.enabled_cloudwatch_logs_exports
+  kms_key_id                      = var.kms_key_id
+  auto_minor_version_upgrade      = var.auto_minor_version_upgrade
+  skip_final_snapshot             = var.skip_final_snapshot
+  max_allocated_storage           = var.max_allocated_storage
 
   tags = merge(
     var.common_tags,
@@ -209,4 +233,52 @@ resource "aws_db_instance" "custom_replica" {
     update = var.timeouts.update
     delete = var.timeouts.delete
   }
+}
+
+resource "aws_cloudwatch_log_group" "postgres" {
+  for_each = local.enabled_cloudwatch_logs_exports
+
+  name              = "/aws/rds/instance/${var.instance_name}/${each.value}"
+  retention_in_days = var.cloudwatch_log_group_retention_in_days
+  kms_key_id        = var.cloudwatch_log_group_kms_key_id
+  skip_destroy      = var.cloudwatch_log_group_skip_destroy
+  log_group_class   = var.cloudwatch_log_group_class
+
+  tags = merge(var.common_tags, var.instance_tags)
+}
+
+resource "aws_cloudwatch_log_group" "postgres_replica" {
+  for_each = toset([for log in local.enabled_cloudwatch_logs_exports : log if var.replica_enabled])
+
+  name              = "/aws/rds/instance/${local.replica_name}/${each.value}"
+  retention_in_days = var.cloudwatch_log_group_retention_in_days
+  kms_key_id        = var.cloudwatch_log_group_kms_key_id
+  skip_destroy      = var.cloudwatch_log_group_skip_destroy
+  log_group_class   = var.cloudwatch_log_group_class
+
+  tags = merge(var.common_tags, var.replica_tags)
+}
+
+resource "aws_cloudwatch_log_group" "postgres_multi_replica" {
+  for_each = { for e in local.multi_replica_cloudwatch_log_groups : "${e.replica_id}.${e.log}" => e }
+
+  name              = "/aws/rds/instance/${each.value.replica_id}/${each.value.log}"
+  retention_in_days = var.cloudwatch_log_group_retention_in_days
+  kms_key_id        = var.cloudwatch_log_group_kms_key_id
+  skip_destroy      = var.cloudwatch_log_group_skip_destroy
+  log_group_class   = var.cloudwatch_log_group_class
+
+  tags = merge(var.common_tags, var.replica_tags)
+}
+
+resource "aws_cloudwatch_log_group" "postgres_custom_replica" {
+  for_each = { for e in local.custom_replicas_cloudwatch_log_groups : "${e.replica_id}.${e.log}" => e }
+
+  name              = "/aws/rds/instance/${each.value.replica_id}/${each.value.log}"
+  retention_in_days = var.cloudwatch_log_group_retention_in_days
+  kms_key_id        = var.cloudwatch_log_group_kms_key_id
+  skip_destroy      = var.cloudwatch_log_group_skip_destroy
+  log_group_class   = var.cloudwatch_log_group_class
+
+  tags = merge(var.common_tags, var.replica_tags)
 }
