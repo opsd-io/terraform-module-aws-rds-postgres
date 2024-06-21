@@ -95,9 +95,9 @@ variable "deletion_protection" {
 }
 
 variable "enabled_cloudwatch_logs_exports" {
-  description = "value"
+  description = "Set of log types to enable for exporting to CloudWatch logs."
   type        = set(string)
-  default     = null
+  default     = ["postgresql", "upgrade"]
 }
 
 variable "engine_version" {
@@ -379,4 +379,36 @@ variable "replica_tags" {
   description = "A map of tags to assign to each replica instance."
   type        = map(string)
   default     = {}
+}
+
+# Cloudwatch
+
+variable "cloudwatch_logs_enabled" {
+  description = "If true, cloudwatch log group is created."
+  type        = bool
+  default     = false
+}
+
+variable "cloudwatch_log_group_retention_in_days" {
+  description = "Tthe number of days to retain log events in the cloudwatch log group."
+  type        = number
+  default     = 7
+}
+
+variable "cloudwatch_log_group_kms_key_id" {
+  description = "The ARN of the KMS Key to use when encrypting log data."
+  type        = string
+  default     = null
+}
+
+variable "cloudwatch_log_group_skip_destroy" {
+  description = "Set to true to prevent deletion fo the log group at terraform destroy time."
+  type        = bool
+  default     = false
+}
+
+variable "cloudwatch_log_group_class" {
+  description = "The log class of the log group."
+  type        = string
+  default     = "STANDARD"
 }
