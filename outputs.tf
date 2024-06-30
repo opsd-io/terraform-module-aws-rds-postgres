@@ -127,57 +127,57 @@ output "db_instance_replica_status" {
 #
 
 output "db_multi_replica_address" {
-  description = "The address of the replica instance."
+  description = "The address of the replica instance (Simple mode)."
   value       = { for r in aws_db_instance.multi_replica : r.identifier => r.address }
 }
 
 output "db_multi_replica_arn" {
-  description = "The ARN of the replica instance."
+  description = "The ARN of the replica instance (Simple mode)."
   value       = { for r in aws_db_instance.multi_replica : r.identifier => r.arn }
 }
 
 output "db_multi_replica_availability_zone" {
-  description = "The availability zone of the replica instance."
+  description = "The availability zone of the replica instance (Simple mode)."
   value       = { for r in aws_db_instance.multi_replica : r.identifier => r.availability_zone }
 }
 
 output "db_multi_replica_backup_retention_period" {
-  description = "The backup window of the replica instance."
+  description = "The backup window of the replica instance (Simple mode)."
   value       = { for r in aws_db_instance.multi_replica : r.identifier => r.backup_retention_period }
 }
 
 output "db_multi_replica_backup_window" {
-  description = "The backup retention period of the replica instance."
+  description = "The backup retention period of the replica instance (Simple mode)."
   value       = { for r in aws_db_instance.multi_replica : r.identifier => r.backup_window }
 }
 
 output "db_multi_replica_endpoint" {
-  description = "The connection endpoint of the replica instance."
+  description = "The connection endpoint of the replica instance (Simple mode)."
   value       = { for r in aws_db_instance.multi_replica : r.identifier => r.endpoint }
 }
 
 output "db_multi_replica_identifier" {
-  description = "The replica instance identifier."
+  description = "The replica instance identifier (Simple mode)."
   value       = [for r in aws_db_instance.multi_replica : r.identifier]
 }
 
 output "db_multi_replica_engine_version_actual" {
-  description = "The running version of the replica instance."
+  description = "The running version of the replica instance (Simple mode)."
   value       = { for r in aws_db_instance.multi_replica : r.identifier => r.engine_version_actual }
 }
 
 output "db_multi_replica_maintenance_window" {
-  description = "The maintenance window of the replica instance."
+  description = "The maintenance window of the replica instance (Simple mode)."
   value       = { for r in aws_db_instance.multi_replica : r.identifier => r.maintenance_window }
 }
 
 output "db_multi_replica_resource_id" {
-  description = "The Resource ID of the replica instance."
+  description = "The Resource ID of the replica instance (Simple mode)."
   value       = { for r in aws_db_instance.multi_replica : r.identifier => r.resource_id }
 }
 
 output "db_multi_replica_status" {
-  description = "The status of the replica instance."
+  description = "The status of the replica instance (Simple mode)."
   value       = { for r in aws_db_instance.multi_replica : r.identifier => r.status }
 }
 
@@ -186,56 +186,56 @@ output "db_multi_replica_status" {
 #
 
 output "db_custom_replica_address" {
-  description = "The address of the replica instance."
+  description = "The address of the replica instance (Advanced mode)."
   value       = { for r in aws_db_instance.custom_replica : r.identifier => r.address }
 }
 
 output "db_custom_replica_arn" {
-  description = "The ARN of the replica instance."
+  description = "The ARN of the replica instance (Advanced mode)."
   value       = { for r in aws_db_instance.custom_replica : r.identifier => r.arn }
 }
 
 output "db_custom_replica_availability_zone" {
-  description = "The availability zone of the replica instance."
+  description = "The availability zone of the replica instance (Advanced mode)."
   value       = { for r in aws_db_instance.custom_replica : r.identifier => r.availability_zone }
 }
 
 output "db_custom_replica_backup_retention_period" {
-  description = "The backup window of the replica instance."
+  description = "The backup window of the replica instance (Advanced mode)."
   value       = { for r in aws_db_instance.custom_replica : r.identifier => r.backup_retention_period }
 }
 
 output "db_custom_replica_backup_window" {
-  description = "The backup retention period of the replica instance."
+  description = "The backup retention period of the replica instance (Advanced mode)."
   value       = { for r in aws_db_instance.custom_replica : r.identifier => r.backup_window }
 }
 
 output "db_custom_replica_endpoint" {
-  description = "The connection endpoint of the replica instance."
+  description = "The connection endpoint of the replica instance (Advanced mode)."
   value       = { for r in aws_db_instance.custom_replica : r.identifier => r.endpoint }
 }
 
 output "db_custom_replica_identifier" {
-  description = "The replica instance identifier."
+  description = "The replica instance identifier (Advanced mode)."
   value       = [for r in aws_db_instance.custom_replica : r.identifier]
 }
 
 output "db_custom_replica_engine_version_actual" {
-  description = "The running version of the replica instance."
+  description = "The running version of the replica instance (Advanced mode)."
   value       = { for r in aws_db_instance.custom_replica : r.identifier => r.engine_version_actual }
 }
 
 output "db_custom_replica_maintenance_window" {
-  description = "The maintenance window of the replica instance."
+  description = "The maintenance window of the replica instance (Advanced mode)."
   value       = { for r in aws_db_instance.custom_replica : r.identifier => r.maintenance_window }
 }
 
 output "db_custom_replica_resource_id" {
-  description = "The Resource ID of the replica instance."
+  description = "The Resource ID of the replica instance (Advanced mode)."
   value       = { for r in aws_db_instance.custom_replica : r.identifier => r.resource_id }
 }
 
 output "db_custom_replica_status" {
-  description = "The status of the replica instance."
+  description = "The status of the replica instance (Advanced mode)."
   value       = { for r in aws_db_instance.custom_replica : r.identifier => r.status }
 }
