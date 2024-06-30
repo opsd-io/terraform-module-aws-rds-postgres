@@ -188,6 +188,17 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_db_custom_replica_address"></a> [db\_custom\_replica\_address](#output\_db\_custom\_replica\_address) | The address of the replica instance (Advanced mode). |
+| <a name="output_db_custom_replica_arn"></a> [db\_custom\_replica\_arn](#output\_db\_custom\_replica\_arn) | The ARN of the replica instance (Advanced mode). |
+| <a name="output_db_custom_replica_availability_zone"></a> [db\_custom\_replica\_availability\_zone](#output\_db\_custom\_replica\_availability\_zone) | The availability zone of the replica instance (Advanced mode). |
+| <a name="output_db_custom_replica_backup_retention_period"></a> [db\_custom\_replica\_backup\_retention\_period](#output\_db\_custom\_replica\_backup\_retention\_period) | The backup window of the replica instance (Advanced mode). |
+| <a name="output_db_custom_replica_backup_window"></a> [db\_custom\_replica\_backup\_window](#output\_db\_custom\_replica\_backup\_window) | The backup retention period of the replica instance (Advanced mode). |
+| <a name="output_db_custom_replica_endpoint"></a> [db\_custom\_replica\_endpoint](#output\_db\_custom\_replica\_endpoint) | The connection endpoint of the replica instance (Advanced mode). |
+| <a name="output_db_custom_replica_engine_version_actual"></a> [db\_custom\_replica\_engine\_version\_actual](#output\_db\_custom\_replica\_engine\_version\_actual) | The running version of the replica instance (Advanced mode). |
+| <a name="output_db_custom_replica_identifier"></a> [db\_custom\_replica\_identifier](#output\_db\_custom\_replica\_identifier) | The replica instance identifier (Advanced mode). |
+| <a name="output_db_custom_replica_maintenance_window"></a> [db\_custom\_replica\_maintenance\_window](#output\_db\_custom\_replica\_maintenance\_window) | The maintenance window of the replica instance (Advanced mode). |
+| <a name="output_db_custom_replica_resource_id"></a> [db\_custom\_replica\_resource\_id](#output\_db\_custom\_replica\_resource\_id) | The Resource ID of the replica instance (Advanced mode). |
+| <a name="output_db_custom_replica_status"></a> [db\_custom\_replica\_status](#output\_db\_custom\_replica\_status) | The status of the replica instance (Advanced mode). |
 | <a name="output_db_instance_address"></a> [db\_instance\_address](#output\_db\_instance\_address) | The address of the RDS instance. |
 | <a name="output_db_instance_arn"></a> [db\_instance\_arn](#output\_db\_instance\_arn) | The ARN of the RDS instance. |
 | <a name="output_db_instance_availability_zone"></a> [db\_instance\_availability\_zone](#output\_db\_instance\_availability\_zone) | The availability zone of the RDS instance. |
@@ -197,8 +208,32 @@ No modules.
 | <a name="output_db_instance_engine_version_actual"></a> [db\_instance\_engine\_version\_actual](#output\_db\_instance\_engine\_version\_actual) | The running version of the RDS instance. |
 | <a name="output_db_instance_identifier"></a> [db\_instance\_identifier](#output\_db\_instance\_identifier) | The RDS instance identifier. |
 | <a name="output_db_instance_maintenance_window"></a> [db\_instance\_maintenance\_window](#output\_db\_instance\_maintenance\_window) | The maintenance window of the RDS instance. |
+| <a name="output_db_instance_replica_address"></a> [db\_instance\_replica\_address](#output\_db\_instance\_replica\_address) | The address of the replica instance. |
+| <a name="output_db_instance_replica_arn"></a> [db\_instance\_replica\_arn](#output\_db\_instance\_replica\_arn) | The ARN of the replica instance. |
 | <a name="output_db_instance_replica_availability_zone"></a> [db\_instance\_replica\_availability\_zone](#output\_db\_instance\_replica\_availability\_zone) | The availability zone of the replica instance. |
+| <a name="output_db_instance_replica_backup_retention_period"></a> [db\_instance\_replica\_backup\_retention\_period](#output\_db\_instance\_replica\_backup\_retention\_period) | The backup window of the replica instance. |
+| <a name="output_db_instance_replica_backup_window"></a> [db\_instance\_replica\_backup\_window](#output\_db\_instance\_replica\_backup\_window) | The backup retention period of the replica instance. |
+| <a name="output_db_instance_replica_endpoint"></a> [db\_instance\_replica\_endpoint](#output\_db\_instance\_replica\_endpoint) | The connection endpoint of the replica instance. |
+| <a name="output_db_instance_replica_engine_version_actual"></a> [db\_instance\_replica\_engine\_version\_actual](#output\_db\_instance\_replica\_engine\_version\_actual) | The running version of the replica instance. |
+| <a name="output_db_instance_replica_identifier"></a> [db\_instance\_replica\_identifier](#output\_db\_instance\_replica\_identifier) | The replica instance identifier. |
+| <a name="output_db_instance_replica_maintenance_window"></a> [db\_instance\_replica\_maintenance\_window](#output\_db\_instance\_replica\_maintenance\_window) | The maintenance window of the replica instance. |
+| <a name="output_db_instance_replica_resource_id"></a> [db\_instance\_replica\_resource\_id](#output\_db\_instance\_replica\_resource\_id) | The Resource ID of the replica instance. |
+| <a name="output_db_instance_replica_status"></a> [db\_instance\_replica\_status](#output\_db\_instance\_replica\_status) | The status of the replica instance. |
+| <a name="output_db_instance_resource_id"></a> [db\_instance\_resource\_id](#output\_db\_instance\_resource\_id) | The Resource ID of the RDS instance. |
 | <a name="output_db_instance_status"></a> [db\_instance\_status](#output\_db\_instance\_status) | The status of the RDS instance. |
+| <a name="output_db_multi_replica_address"></a> [db\_multi\_replica\_address](#output\_db\_multi\_replica\_address) | The address of the replica instance (Simple mode). |
+| <a name="output_db_multi_replica_arn"></a> [db\_multi\_replica\_arn](#output\_db\_multi\_replica\_arn) | The ARN of the replica instance (Simple mode). |
+| <a name="output_db_multi_replica_availability_zone"></a> [db\_multi\_replica\_availability\_zone](#output\_db\_multi\_replica\_availability\_zone) | The availability zone of the replica instance (Simple mode). |
+| <a name="output_db_multi_replica_backup_retention_period"></a> [db\_multi\_replica\_backup\_retention\_period](#output\_db\_multi\_replica\_backup\_retention\_period) | The backup window of the replica instance (Simple mode). |
+| <a name="output_db_multi_replica_backup_window"></a> [db\_multi\_replica\_backup\_window](#output\_db\_multi\_replica\_backup\_window) | The backup retention period of the replica instance (Simple mode). |
+| <a name="output_db_multi_replica_endpoint"></a> [db\_multi\_replica\_endpoint](#output\_db\_multi\_replica\_endpoint) | The connection endpoint of the replica instance (Simple mode). |
+| <a name="output_db_multi_replica_engine_version_actual"></a> [db\_multi\_replica\_engine\_version\_actual](#output\_db\_multi\_replica\_engine\_version\_actual) | The running version of the replica instance (Simple mode). |
+| <a name="output_db_multi_replica_identifier"></a> [db\_multi\_replica\_identifier](#output\_db\_multi\_replica\_identifier) | The replica instance identifier (Simple mode). |
+| <a name="output_db_multi_replica_maintenance_window"></a> [db\_multi\_replica\_maintenance\_window](#output\_db\_multi\_replica\_maintenance\_window) | The maintenance window of the replica instance (Simple mode). |
+| <a name="output_db_multi_replica_resource_id"></a> [db\_multi\_replica\_resource\_id](#output\_db\_multi\_replica\_resource\_id) | The Resource ID of the replica instance (Simple mode). |
+| <a name="output_db_multi_replica_status"></a> [db\_multi\_replica\_status](#output\_db\_multi\_replica\_status) | The status of the replica instance (Simple mode). |
+| <a name="output_parameter_group_id"></a> [parameter\_group\_id](#output\_parameter\_group\_id) | The ID of the DB parameter group. |
+| <a name="output_subnet_group_id"></a> [subnet\_group\_id](#output\_subnet\_group\_id) | The ID of the DB subnet Group. |
 <!-- END_TF_DOCS -->
 
 ## Examples of usage
